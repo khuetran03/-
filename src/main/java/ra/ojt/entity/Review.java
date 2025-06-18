@@ -1,6 +1,7 @@
 package ra.ojt.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,13 +18,21 @@ import java.time.LocalDateTime;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(length = 10)
+    @NotNull
     private Long id;
-    @Column(name = "user_id")
-    private Long userId;
-    @Column(name = "service_id")
-    private Long serviceId;
+//    @Column(name = "user_id")
+//    private Long userId;
+//    @Column(name = "service_id")
+//    private Long serviceId;
     @Column(columnDefinition = "TEXT")
+    @NotBlank
+    @Size(max = 1000)
     private String content;
+    @Column(length = 1)
+    @NotNull
+    @Min(1)
+    @Max(5)
     private Integer rating;
     @Column(name = "date_time")
     private LocalDateTime rateTime;

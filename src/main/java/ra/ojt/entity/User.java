@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ra.ojt.config.enums.UserStatus;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class User {
     private String phone;
     private String password;
     @Enumerated(EnumType.STRING)
-    private StatusUser status;
+    private UserStatus status;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore

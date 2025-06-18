@@ -2,10 +2,12 @@ package ra.ojt.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ra.ojt.config.enums.Duration;
 
 import java.math.BigDecimal;
 import java.util.List;
