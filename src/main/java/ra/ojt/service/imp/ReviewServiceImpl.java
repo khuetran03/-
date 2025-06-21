@@ -2,8 +2,6 @@ package ra.ojt.service.imp;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ra.ojt.dto.request.ReviewDtoRequest;
 import ra.ojt.dto.response.RaResponse;
