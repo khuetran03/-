@@ -1,5 +1,6 @@
 package ra.ojt.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,6 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 10)
-    @NotNull
     private Long id;
 //    @Column(name = "user_id")
 //    private Long userId;
@@ -35,14 +35,15 @@ public class Review {
     @Max(5)
     private Integer rating;
     @Column(name = "date_time")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime rateTime;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", updatable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "service_id", insertable = false, updatable = false)
+    @JoinColumn(name = "service_id", updatable = false)
     private Service service;
 
     @PrePersist
