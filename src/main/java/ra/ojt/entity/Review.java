@@ -28,7 +28,7 @@ public class Review {
     @Column(columnDefinition = "TEXT")
     @NotBlank
     @Size(max = 1000)
-    private String content;
+    private String comment;
     @Column(length = 1)
     @NotNull
     @Min(1)

@@ -24,20 +24,20 @@ public class ReviewServiceImpl implements ReviewService {
     private final UserRepository userRepository;
     private final ServiceRepository serviceRepository;
     @Override
-    public RaResponse newReview(ReviewDtoRequest request) {
-        if (reviewRepository.existsByUserIdAndServiceId(request.getUserId(), request.getServiceId())) {
+    public RaResponse newReview(ReviewDtoRequest request, Long userId, Long serviceId) {
+        if (reviewRepository.existsByUserIdAndServiceId(userId, serviceId)) {
             throw new ExistsException("Review already exists");
         }
-        User user = userRepository.findById(request.getUserId())
+        User user = userRepository.findById(userId)
                 .orElseThrow(()-> new NotFoundException("Not found User"));
-        ra.ojt.entity.Service service = serviceRepository.findById(request.getServiceId())
+        ra.ojt.entity.Service service = serviceRepository.findById(serviceId)
                 .orElseThrow(()-> new NotFoundException("Not found Service"));
         Review review = ReviewMapper.mapReviewDtoRequestToEntity(request);
         review.setUser(user);
         review.setService(service);
         Review newReview;
         try{
-            newReview = reviewRepository.save(review);
+           newReview = reviewRepository.save(review);
         }catch(Exception e){
             e.printStackTrace();
             throw e;
@@ -50,7 +50,7 @@ public class ReviewServiceImpl implements ReviewService {
                 "userId",newReview.getUser().getId(),
                 "serviceId",newReview.getService().getId(),
                 "rating",newReview.getRating(),
-                "content",newReview.getContent(),
+                "comment",newReview.getComment(),
                 "rateTime",newReview.getRateTime()
         ));
         return response;

@@ -11,7 +11,7 @@ import ra.ojt.service.ReviewService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/bookingmassage/review")
+@RequestMapping("/bookingmassage")
 public class ReviewController {
 
     /*
@@ -35,9 +35,10 @@ public class ReviewController {
 //    }
     //2025.06.18 Vinh_HD
     private final ReviewService reviewService;
-    @PostMapping("/new-review")
-    public ResponseEntity<RaResponse> newReview(@Valid @RequestBody ReviewDtoRequest request) {
-        RaResponse response = reviewService.newReview(request);
+    @PostMapping("/service/{serviceId}/{userId}/new-review")
+    public ResponseEntity<RaResponse> newReview(@Valid @RequestBody ReviewDtoRequest request,
+                                                @PathVariable Long serviceId,@PathVariable Long userId) {
+        RaResponse response = reviewService.newReview(request, userId, serviceId);
         return ResponseEntity.ok(response);
     }
 

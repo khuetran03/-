@@ -7,7 +7,7 @@ public class ReviewMapper {
     public static Review mapReviewDtoRequestToEntity(ReviewDtoRequest request){
         Review review = new Review();
         review.setRating(request.getRating());
-        review.setContent(request.getContent());
+        review.setComment(request.getComment());
         return review;
     }
 }
