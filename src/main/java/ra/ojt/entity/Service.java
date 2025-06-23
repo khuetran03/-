@@ -31,4 +31,8 @@ public class Service {
     @OneToMany(mappedBy = "service",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Review> serviceReviews;
+
+    @OneToMany(mappedBy = "service",cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+    @JsonIgnore
+    private List<Booking> serviceBookings;
 }

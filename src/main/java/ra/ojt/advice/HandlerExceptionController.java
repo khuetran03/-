@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ra.ojt.exception.CustomException;
 import ra.ojt.exception.ExistsException;
+import ra.ojt.exception.NotAllowedException;
 import ra.ojt.exception.NotFoundException;
 
 import java.util.HashMap;
@@ -48,6 +49,17 @@ public class HandlerExceptionController {
         Map<String, DataError<String>> map = new HashMap<>();
         map.put("Error", err);
         return new ResponseEntity<>(map, HttpStatus.CONFLICT);
+    }
+
+    // Bắt và xữ lý lỗi Not Allowed Exception
+    @ExceptionHandler
+    public ResponseEntity<Map<String, DataError<String>>> handlerNotAlowedException(NotAllowedException e) {
+        DataError<String> err = new DataError<>();
+        err.setCode(403); //403 Forbidden  -   từ chối thực hiện vì người dùng không có quyền
+        err.setMessage(e.getMessage());
+        Map<String, DataError<String>> map = new HashMap<>();
+        map.put("Error", err);
+        return new ResponseEntity<>(map, HttpStatus.FORBIDDEN);
     }
 
     // Lỗi conflict dữ liệu do ràng buộc Unique
