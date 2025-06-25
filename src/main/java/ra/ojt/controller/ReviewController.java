@@ -2,6 +2,7 @@ package ra.ojt.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ra.ojt.dto.request.ReviewDtoRequest;
@@ -39,7 +40,7 @@ public class ReviewController {
     public ResponseEntity<RaResponse> newReview(@Valid @RequestBody ReviewDtoRequest request,
                                                 @PathVariable Long serviceId,@PathVariable Long userId) {
         RaResponse response = reviewService.newReview(request, userId, serviceId);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     /*
@@ -48,5 +49,4 @@ public class ReviewController {
      * @param serviceId ID dịch vụ
      * @return danh sách đánh giá
      */
-
 }
