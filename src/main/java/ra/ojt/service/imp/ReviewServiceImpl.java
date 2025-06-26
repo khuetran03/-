@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ra.ojt.config.enums.BookingStatus;
 import ra.ojt.dto.request.ReviewDtoRequest;
 import ra.ojt.dto.response.RaResponse;
+import ra.ojt.entity.Booking;
 import ra.ojt.entity.Review;
 import ra.ojt.entity.User;
 import ra.ojt.exception.ExistsException;
@@ -14,7 +15,6 @@ import ra.ojt.exception.NotFoundException;
 import ra.ojt.mapper.ReviewMapper;
 import ra.ojt.repository.BookingRepository;
 import ra.ojt.repository.ReviewRepository;
-import ra.ojt.repository.ServiceRepository;
 import ra.ojt.repository.UserRepository;
 import ra.ojt.service.ReviewService;
 
@@ -25,23 +25,22 @@ import java.util.Map;
 public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
-    private final ServiceRepository serviceRepository;
     private final BookingRepository bookingRepository;
     @Override
-    public RaResponse newReview(ReviewDtoRequest request, Long userId, Long serviceId) {
-        if (reviewRepository.existsByUserIdAndServiceId(userId, serviceId)) {
-            throw new ExistsException("Review already exists");
-        }
+    public RaResponse newReview(ReviewDtoRequest request, Long userId, Long bookingId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new NotFoundException("Not found User"));
-        ra.ojt.entity.Service service = serviceRepository.findById(serviceId)
-                .orElseThrow(()-> new NotFoundException("Not found Service"));
-        if (bookingRepository.countByStatusAnduserIddAndserviceId(BookingStatus.COMPLETED, userId, serviceId)==0) {
-            throw new NotAllowedException("Not allowed to review this service");
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(()-> new NotFoundException("Not found Booking"));
+        if (reviewRepository.existsByBookingId(bookingId)) {
+            throw new ExistsException("Review already exists");
+        }else if (booking.getStatus() != BookingStatus.COMPLETED) {
+            throw new NotAllowedException("Booking is not completed");
         }
         Review review = ReviewMapper.mapReviewDtoRequestToEntity(request);
         review.setUser(user);
-        review.setService(service);
+        review.setBooking(booking);
+        review.setService(booking.getService());
         Review newReview;
         try{
            newReview = reviewRepository.save(review);
@@ -55,7 +54,8 @@ public class ReviewServiceImpl implements ReviewService {
         response.setId(newReview.getId());
         response.setData(Map.of(
                 "userId",newReview.getUser().getId(),
-                "serviceId",newReview.getService().getId(),
+                "serviceId",newReview.getBooking().getService().getId(),
+                "bookingId",newReview.getBooking().getId(),
                 "rating",newReview.getRating(),
                 "comment",newReview.getComment(),
                 "rateTime",newReview.getRateTime()

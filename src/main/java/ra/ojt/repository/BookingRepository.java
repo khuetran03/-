@@ -7,8 +7,10 @@ import ra.ojt.config.enums.BookingStatus;
 import ra.ojt.entity.Booking;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-//    @Query("select count(b) from Booking b where b.status = 'COMPLETED' and b.user.id = :userId and b.service = :serviceId")
+    Booking findById(long id);
+//    @Query("select count(b) from Booking b where b.status = ra.ojt.config.enums.BookingStatus.COMPLETED and b.user.id = :userId and b.service = :serviceId")
 //    Long countCompleteBookingByUserIdAndServiceId(@Param("userId") Long userId, @Param("serviceId") Long serviceId);
     @Query("select count(b) from Booking b where b.status = :status and b.user.id = :userId and b.service.id = :serviceId")
     Long countByStatusAnduserIddAndserviceId(@Param("status") BookingStatus status,@Param("userId") Long userId, @Param("serviceId") Long serviceId);
+
 }

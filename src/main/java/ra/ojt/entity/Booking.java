@@ -34,4 +34,6 @@ public class Booking {
     @JoinColumn(name = "service_id", updatable = false)
     private Service service;
 
+//    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private Review review;
 }

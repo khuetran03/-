@@ -35,11 +35,19 @@ public class ReviewController {
 //                  }
 //    }
     //2025.06.18 Vinh_HD
+//    private final ReviewService reviewService;
+//    @PostMapping("/user/{userId}/service/{serviceId}/new-review")
+//    public ResponseEntity<RaResponse> newReview(@Valid @RequestBody ReviewDtoRequest request,
+//                                                @PathVariable Long serviceId,@PathVariable Long userId) {
+//        RaResponse response = reviewService.newReview(request, userId, serviceId);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+//    }
+
     private final ReviewService reviewService;
-    @PostMapping("/user/{userId}/service/{serviceId}/new-review")
+    @PostMapping("/user/{userId}/bookings/{bookingId}/new-review")
     public ResponseEntity<RaResponse> newReview(@Valid @RequestBody ReviewDtoRequest request,
-                                                @PathVariable Long serviceId,@PathVariable Long userId) {
-        RaResponse response = reviewService.newReview(request, userId, serviceId);
+                                                @PathVariable Long bookingId,@PathVariable Long userId) {
+        RaResponse response = reviewService.newReview(request, userId, bookingId);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 

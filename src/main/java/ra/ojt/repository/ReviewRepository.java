@@ -5,4 +5,7 @@ import ra.ojt.entity.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     boolean existsByUserIdAndServiceId(Long userId, Long serviceId);
+    boolean existsByBookingId(Long bookingId);
+
+    Review findByUserIdAndServiceId(Long userId, Long serviceId);
 }

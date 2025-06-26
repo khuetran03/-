@@ -46,6 +46,10 @@ public class Review {
     @JoinColumn(name = "service_id", updatable = false)
     private Service service;
 
+    @OneToOne
+    @JoinColumn(name = "booking_id", unique = true)
+    private Booking booking;
+
     @PrePersist
     protected void onCreate() {
         this.rateTime = LocalDateTime.now();

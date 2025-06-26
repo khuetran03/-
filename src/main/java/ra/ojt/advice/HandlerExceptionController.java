@@ -3,6 +3,7 @@ package ra.ojt.advice;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -18,17 +19,33 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class HandlerExceptionController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<DataError<String>> handlerValidException(MethodArgumentNotValidException exception) {
+    public ResponseEntity<Map<String, DataError<String>>> handlerValidException(MethodArgumentNotValidException exception) {
         String errorMessage = exception.getFieldErrors()
                 .stream()
                 .map(fieldError -> fieldError.getDefaultMessage())
                 .collect(Collectors.joining(", "));
-        return ResponseEntity.badRequest().body(new DataError<>(400, errorMessage));
+        Map<String,DataError<String>> map = new HashMap<>();
+        map.put("error", new DataError(400, errorMessage));
+        return ResponseEntity.badRequest().body(map);
     }
 
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<DataError<String>> handlerCustomException(CustomException exception) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DataError<>(404, exception.getMessage()));
+    public ResponseEntity<Map<String,DataError<String>>> handlerCustomException(CustomException exception) {
+        Map<String, DataError<String>> map = new HashMap<>();
+        map.put("error", new DataError<>(400, exception.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
+    }
+    //
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Map<String,DataError<String>>> handleEmptyBody(HttpMessageNotReadableException e) {
+        DataError<String> err = new DataError<>();
+        err.setCode(400);
+        err.setMessage("Request body không hợp lệ hoặc bị thiếu");
+        Map<String, DataError<String>> map = new HashMap<>();
+        map.put("error", err);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(map);
     }
     // Bắt và xữ lý lỗi NotfoundException
     @ExceptionHandler
@@ -55,11 +72,11 @@ public class HandlerExceptionController {
     @ExceptionHandler
     public ResponseEntity<Map<String, DataError<String>>> handlerNotAlowedException(NotAllowedException e) {
         DataError<String> err = new DataError<>();
-        err.setCode(403); //403 Forbidden  -   từ chối thực hiện vì người dùng không có quyền
+        err.setCode(409); //409 conflict  -   trạng thái không phù hợp với yêu cầu
         err.setMessage(e.getMessage());
         Map<String, DataError<String>> map = new HashMap<>();
         map.put("Error", err);
-        return new ResponseEntity<>(map, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(map, HttpStatus.CONFLICT);
     }
 
     // Lỗi conflict dữ liệu do ràng buộc Unique
