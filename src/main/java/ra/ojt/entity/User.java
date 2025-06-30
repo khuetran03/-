@@ -1,10 +1,9 @@
 package ra.ojt.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.*;
+import ra.ojt.config.enums.UserStatus;
 
 import java.time.LocalDateTime;
 
@@ -21,27 +20,23 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @NotBlank
-    @Size(max = 64)
-    @Column(name = "full_name", nullable = false, length = 64)
+    @Column(name = "full_name")
     private String fullName;
 
-    @NotBlank
-    @Email(message = "Email không đúng định dạng!")
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email")
     private String email;
 
-    @Size(max = 15)
-    @Column(name = "phone", length = 15, unique = true)
+    @Column(name = "phone")
     private String phone;
 
     @NotBlank
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @NotBlank
-    @Column(name = "status", nullable = false)
-    private String status;
+    @Column(name = "status")
+    private UserStatus userStatus;
 
     @Column(name = "deleted_at")
     private LocalDateTime deleteAt;

@@ -1,7 +1,9 @@
 package ra.ojt.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import ra.ojt.config.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -20,19 +22,21 @@ public class Payment {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "booking_id", nullable = false)
+    @JoinColumn(name = "booking_id",nullable = false)
     private Booking booking;
 
-    @Column(name = "amount", nullable = false)
+    @Column(name = "amount")
     private BigDecimal amount;
-    @Column(name = "payment_method", nullable = false)
+    @Column(name = "payment_method")
     private String paymentMethod; // PAYPAL
 
-    @Column(name = "transaction_id", unique = true)
+    @Column(name = "transaction_id")
     private String transactionId; // PayPal Order ID
 
-    @Column(name = "payment_status")
-    private String paymentStatus; // CREATED, APPROVED, COMPLETED, FAILED
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_status",nullable = false)
+    @NotBlank
+    private PaymentStatus paymentStatus; // CREATED, APPROVED, COMPLETED, FAILED
 
     @Column(name = "paid_at")
     private LocalDateTime paidAt;

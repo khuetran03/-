@@ -1,12 +1,8 @@
 package ra.ojt.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
+import ra.ojt.config.enums.Duration;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -24,27 +20,21 @@ public class Service {
     @Column(name = "service_id")
     private Long id;
 
-    @NotBlank
-    @Size(max = 64)
-    @Column(name = "service_name", nullable = false, length = 64)
+    @Column(name = "service_name")
     private String name;
 
-    @NotBlank
-    @Size(max = 254)
-    @Column(name = "service_description", nullable = false, length = 254)
+    @Column(name = "service_description")
     private String description;
 
-    @DecimalMin("0.0")
-    @Digits(integer = 8, fraction = 2)
-    @Column(name = "service_price", nullable = false)
+    @Column(name = "service_price")
     private BigDecimal price;
 
-    @NotBlank
-    @Column(name = "service_duration", nullable = false)
-    private String duration;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "service_duration")
+    private Duration duration;
 
     @ManyToOne
-    @JoinColumn(name = "staff_id", nullable = false)
+    @JoinColumn(name = "staff_id")
     private User staff;
 
     @Column(name = "deleted_at")

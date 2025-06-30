@@ -1,7 +1,6 @@
 package ra.ojt.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import ra.ojt.config.enums.BookingStatus;
@@ -37,7 +36,7 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     @NotNull
-    private BookingStatus status;
+    private BookingStatus bookingStatus;
 
     @NotNull
     @Column(name = "start_at", nullable = false)
