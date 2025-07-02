@@ -25,7 +25,11 @@ repositories {
 
 dependencies {
     implementation 'org.hibernate.validator:hibernate-validator'
-    implementation 'org.glassfish:jakarta.el'
+    implementation 'org.glassfish:jakarta.el:4.0.2'
+//    Gửi mail qua JavaMailSender
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+//    connect mySQL
+    implementation 'mysql:mysql-connector-java:8.0.33'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 //    implementation 'org.springframework.boot:spring-boot-starter-security'

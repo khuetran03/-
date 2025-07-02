@@ -1,36 +1,45 @@
 package ra.ojt.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 import ra.ojt.config.enums.UserStatus;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
-
-@AllArgsConstructor
+@Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Entity
-
+@Builder
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
+
     @Column(name = "full_name")
     private String fullName;
-    private String email;
-    private String phone;
-    private String password;
-    @Enumerated(EnumType.STRING)
-    private UserStatus status;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<Booking> userBookings;
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @NotBlank
+    @Column(name = "password")
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    @NotBlank
+    @Column(name = "status")
+    private UserStatus userStatus;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deleteAt;
+
 }
 

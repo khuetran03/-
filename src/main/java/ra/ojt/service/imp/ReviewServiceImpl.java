@@ -35,7 +35,7 @@ public class ReviewServiceImpl implements ReviewService {
                 .orElseThrow(()-> new NotFoundException("Not found Booking"));
         if (reviewRepository.existsByBookingId(bookingId)) {
             throw new ExistsException("Review already exists");
-        }else if (booking.getStatus() != BookingStatus.COMPLETED) {
+        }else if (booking.getBookingStatus() != BookingStatus.COMPLETED) {
             throw new NotAllowedException("Booking is not completed");
         }
         Review review = ReviewMapper.mapReviewDtoRequestToEntity(request);
