@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ra.ojt.config.enums.BookingStatus;
 import ra.ojt.dto.request.ReviewDtoRequest;
-import ra.ojt.dto.response.RaResponse;
+import ra.ojt.dto.response.ReviewDtoResponse;
 import ra.ojt.entity.Booking;
 import ra.ojt.entity.Review;
 import ra.ojt.entity.User;
@@ -18,6 +18,7 @@ import ra.ojt.repository.ReviewRepository;
 import ra.ojt.repository.UserRepository;
 import ra.ojt.service.ReviewService;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -27,10 +28,10 @@ public class ReviewServiceImpl implements ReviewService {
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
     @Override
-    public RaResponse newReview(ReviewDtoRequest request, Long userId, Long bookingId) {
+    public Map<String,ReviewDtoResponse> newReview(ReviewDtoRequest request, Long userId, Long bookingId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new NotFoundException("Not found User"));
-        Booking booking = bookingRepository.findById(bookingId)
+        Booking booking = bookingRepository.findByIdAndUserId(bookingId,userId)
                 .orElseThrow(()-> new NotFoundException("Not found Booking"));
         if (reviewRepository.existsByBookingId(bookingId)) {
             throw new ExistsException("Review already exists");
@@ -38,9 +39,7 @@ public class ReviewServiceImpl implements ReviewService {
             throw new NotAllowedException("Booking is not completed");
         }
         Review review = ReviewMapper.mapReviewDtoRequestToEntity(request);
-        review.setUser(user);
         review.setBooking(booking);
-        review.setService(booking.getService());
         Review newReview;
         try{
            newReview = reviewRepository.save(review);
@@ -48,19 +47,10 @@ public class ReviewServiceImpl implements ReviewService {
             e.printStackTrace();
             throw e;
         }
-
-        RaResponse response = new RaResponse();
-        response.setType("Review");
-        response.setId(newReview.getId());
-        response.setData(Map.of(
-                "userId",newReview.getUser().getId(),
-                "serviceId",newReview.getBooking().getService().getId(),
-                "bookingId",newReview.getBooking().getId(),
-                "rating",newReview.getRating(),
-                "comment",newReview.getComment(),
-                "rateTime",newReview.getRateTime()
-        ));
-        return response;
+        ReviewDtoResponse response = ReviewMapper.mapReviewToReviewDtoResponse(newReview);
+        Map<String, ReviewDtoResponse> map = new HashMap<>();
+        map.put("review", response);
+        return map;
     }
 
 }

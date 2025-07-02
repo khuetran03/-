@@ -38,14 +38,6 @@ public class Review {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime rateTime;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", updatable = false)
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "service_id", updatable = false)
-    private Service service;
-
     @OneToOne
     @JoinColumn(name = "booking_id", unique = true)
     private Booking booking;
