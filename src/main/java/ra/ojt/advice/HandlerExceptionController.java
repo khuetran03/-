@@ -72,11 +72,11 @@ public class HandlerExceptionController {
     @ExceptionHandler
     public ResponseEntity<Map<String, DataError<String>>> handlerNotAlowedException(NotAllowedException e) {
         DataError<String> err = new DataError<>();
-        err.setCode(409); //409 conflict  -   trạng thái không phù hợp với yêu cầu
+        err.setCode(400); //409 conflict  -   trạng thái không phù hợp với yêu cầu
         err.setMessage(e.getMessage());
         Map<String, DataError<String>> map = new HashMap<>();
         map.put("Error", err);
-        return new ResponseEntity<>(map, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
     }
 
     // Lỗi conflict dữ liệu do ràng buộc Unique
