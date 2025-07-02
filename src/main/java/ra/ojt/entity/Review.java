@@ -21,18 +21,14 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 10)
     private Long id;
-//    @Column(name = "user_id")
-//    private Long userId;
-//    @Column(name = "service_id")
-//    private Long serviceId;
     @Column(columnDefinition = "TEXT")
-    @NotBlank
-    @Size(max = 1000)
+//    @NotBlank
+//    @Size(max = 1000)
     private String comment;
     @Column(length = 1)
-    @NotNull
-    @Min(1)
-    @Max(5)
+//    @NotNull
+//    @Min(1)
+//    @Max(5)
     private Integer rating;
     @Column(name = "date_time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
