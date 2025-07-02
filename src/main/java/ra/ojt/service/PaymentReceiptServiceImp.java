@@ -1,4 +1,4 @@
-package ra.ojt.service.Imp;
+package ra.ojt.service;
 
 public interface PaymentReceiptServiceImp {
     String generateReceiptMessage(Long bookingId);

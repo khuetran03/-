@@ -35,7 +35,6 @@ public class Payment {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status",nullable = false)
-    @NotBlank
     private PaymentStatus paymentStatus; // CREATED, APPROVED, COMPLETED, FAILED
 
     @Column(name = "paid_at")

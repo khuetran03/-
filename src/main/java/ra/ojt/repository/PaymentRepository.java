@@ -1,4 +1,4 @@
-package ra.ojt.Repository;
+package ra.ojt.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ra.ojt.entity.Booking;

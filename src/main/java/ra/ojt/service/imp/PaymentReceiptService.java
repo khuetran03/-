@@ -1,4 +1,4 @@
-package ra.ojt.service;
+package ra.ojt.service.imp;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import ra.ojt.config.enums.PaymentStatus;
 import ra.ojt.entity.Booking;
 import ra.ojt.entity.Payment;
-import ra.ojt.Repository.BookingRepository;
-import ra.ojt.Repository.PaymentRepository;
+import ra.ojt.repository.BookingRepository;
+import ra.ojt.repository.PaymentRepository;
 import ra.ojt.exception.BusinessException;
 import ra.ojt.exception.ResourceNotFoundException;
-import ra.ojt.service.Imp.PaymentReceiptServiceImp;
+import ra.ojt.service.PaymentReceiptServiceImp;
 
 import java.util.Optional;
 

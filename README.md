@@ -43,16 +43,18 @@
  --> (sẽ được cung cấp khi test)
 
 ## API chính 
-### 1. Gửi biên lai qua Email
+### 1. Gửi thông báo mock push notification
 
-- **POST** `/receipt/send-email`
+- **POST** `/receipt/send-push`
 - **Request body:**
 ```json
 {
   "id": 1
 }
 ```
-- - **POST** `/receipt/send-push`
+
+### 2. Gửi biên lai qua mail
+- - **POST** `/receipt/send-email`
 - **Request body:**
 ```json
 {
@@ -62,6 +64,6 @@
 
 ### 2. Gửi request, kiểm tra response:
 
-- Nếu thành công nhận được status 200 và message tiếng Nhật xác nhận gửi mail.
+- Nếu thành công nhận được status 200 và message tiếng Nhật xác nhận gửi thông báo hoặc gửi biên lai mail.
 - Nếu lỗi validate hoặc không tìm thấy booking nhận lỗi 400 hoặc 404.
 - Nếu lỗi mail server nhận lỗi 500.

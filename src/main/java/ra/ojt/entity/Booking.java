@@ -35,14 +35,11 @@ public class Booking {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    @NotNull
     private BookingStatus bookingStatus;
 
-    @NotNull
     @Column(name = "start_at", nullable = false)
     private LocalDateTime startAt;
 
-    @NotNull
     @Column(name = "end_at", nullable = false)
     private LocalDateTime endAt;
 
