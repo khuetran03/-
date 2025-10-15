@@ -29,13 +29,11 @@ public class User {
     @Column(name = "phone")
     private String phone;
 
-    @NotBlank
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @NotBlank
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private UserStatus userStatus;
 
     @Column(name = "deleted_at")

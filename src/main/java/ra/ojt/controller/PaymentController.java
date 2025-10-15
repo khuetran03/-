@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ra.ojt.dto.PaymentReceiptRequestDTO;
 import ra.ojt.service.imp.PaymentReceiptService;
 
+import java.util.Random;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/receipt")
@@ -43,5 +45,6 @@ public class PaymentController {
         paymentReceiptService.sendReceiptMail(request.getId());
         return ResponseEntity.ok("Biên lai đã được gửi qua Email");
     }
+
     // Gửi biên lai thanh toán thành công qua Email
 }

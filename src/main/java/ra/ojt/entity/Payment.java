@@ -22,7 +22,7 @@ public class Payment {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "booking_id",nullable = false)
+    @JoinColumn(name = "booking_id", nullable = false)
     private Booking booking;
 
     @Column(name = "amount")
@@ -34,7 +34,7 @@ public class Payment {
     private String transactionId; // PayPal Order ID
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "payment_status",nullable = false)
+    @Column(name = "payment_status", nullable = false)
     private PaymentStatus paymentStatus; // CREATED, APPROVED, COMPLETED, FAILED
 
     @Column(name = "paid_at")

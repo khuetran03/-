@@ -21,7 +21,7 @@ public class ServiceRequestDTO {
     @Digits(integer = 8, fraction = 2, message = "Định dạng giá không hợp lệ")
     private BigDecimal price;
 
-    @NotBlank(message = "Thời lượng dịch vụ là bắt buộc")
+    @NotNull(message = "Thời lượng dịch vụ là bắt buộc")
     private Duration duration;
 
     @NotNull(message = "Mã nhân viên là bắt buộc")

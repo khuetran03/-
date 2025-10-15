@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class BookingMassageApplication {
-    // code sau khi hoàn thành tassk
+    // code sau khi hoàn thành task
 
     public static void main(String[] args) {
         SpringApplication.run(BookingMassageApplication.class, args);
