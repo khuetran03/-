@@ -72,7 +72,7 @@ spring.mail.password=your_app_password  # (sẽ được cung cấp khi test)
 {
   "id": 1
 }
-
+```
 
 ### 2. Gửi biên lai qua mail
 - - **POST** `/receipt/send-email`
