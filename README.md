@@ -1,22 +1,55 @@
 # 💆‍♂️ Booking Massage Receipt App
 
-## 📝 プロジェクト概要（Project Overview）
-このアプリは、マッサージ店向けの予約管理・支払い領収書システムです。  
-Spring Bootを使用し、ユーザーがオンラインでマッサージを予約し、支払い後に領収書をメールまたは通知として受け取ることができます。  
-チーム開発として作成し、私は主にバックエンドの設計・実装（支払い処理・領収書送信機能など）を担当しました。  
+---
 
-**使用技術:**  
-Java / Spring Boot / MySQL / JavaMailSender / Spring Validation / PayPal SDK（mock）  
+## 📝 プロジェクト概要（Project Overview）
+
+このアプリは、**マッサージ店向けの予約管理・支払い領収書システム**です。  
+Spring Bootを使用し、ユーザーがオンラインでマッサージを予約し、支払い完了後に領収書を**メールまたは通知**として受け取ることができます。  
+
+チーム開発として作成し、私は主に**バックエンドの設計・実装（支払い処理、領収書送信機能など）**を担当しました。  
+また、DTOによるデータ検証や例外処理、メール送信処理の実装も行いました。  
+
+---
+
+### 🧰 使用技術（Technologies）
+
+| 技術 | 内容 |
+|------|------|
+| Java 17 | メイン言語 |
+| Spring Boot | バックエンドフレームワーク |
+| Spring Data JPA | ORM（Hibernate） |
+| Spring Validation | 入力データ検証（DTO） |
+| JavaMailSender | メール送信（Gmail SMTP） |
+| MySQL | データベース |
+| PayPal SDK（mock） | 簡易的な決済処理 |
+
+---
+
+### 💼 担当部分（My Role）
+- 支払い処理ロジックの実装  
+- 領収書メール送信機能（HTMLテンプレート）  
+- DTOによるデータバリデーション  
+- 例外ハンドリング（CustomException, HandlerAdvice）  
+
+---
+
+### 🧠 学んだこと（Learning Points）
+- Springのレイヤー構造（Controller → Service → Repository）  
+- バリデーションと例外処理の設計  
+- JavaMailSenderを用いたHTMLメール送信  
+- チーム開発における連携・コミュニケーションスキルの向上  
 
 ---
 
 ## 🇻🇳 Giới thiệu (Vietnamese Description)
+
 Ứng dụng đặt lịch massage và gửi biên lai thanh toán qua Email hoặc Notification.  
-Dự án được xây dựng bằng Spring Boot, MySQL và JavaMailSender để gửi hóa đơn thanh toán HTML khi người dùng hoàn tất giao dịch.
+Dự án được xây dựng bằng **Spring Boot**, **MySQL** và **JavaMailSender** để gửi hóa đơn thanh toán HTML khi người dùng hoàn tất giao dịch.  
 
 ---
 
-## ⚙️ Chức năng chính
+### ⚙️ Chức năng chính
 
 - Đặt lịch dịch vụ massage  
 - Tạo đơn thanh toán  
@@ -28,30 +61,16 @@ Dự án được xây dựng bằng Spring Boot, MySQL và JavaMailSender để
 
 ---
 
-## 🧰 Công nghệ sử dụng
+### 🧩 Cấu trúc chính
 
-| Công nghệ | Mô tả |
-|------------|-------|
-| **Java 17** | Ngôn ngữ chính |
-| **Spring Boot** | Framework Backend |
-| **Spring Data JPA** | ORM với Hibernate |
-| **Spring Validation** | Kiểm tra dữ liệu đầu vào (DTO) |
-| **JavaMailSender** | Gửi mail với Gmail SMTP |
-| **MySQL** | Cơ sở dữ liệu |
-| **PayPal SDK** | Mock thanh toán đơn giản |
-
----
-
-## 🧩 Cấu trúc chính
-
-- **Entity:** `Booking`, `Payment`, `User`, `Service`  
-- **DTO:** `BookingRequestDTO`, `PaymentReceiptRequestDTO`, `PaymentRequestDTO`, ...  
-- **Enum:** `BookingStatus`, `PaymentStatus`  
-- **Repository:** `BookingRepository`, `PaymentRepository`  
-- **Service:** `PaymentReceiptService`, `PaymentReceiptServiceImp` (Interface)  
-- **Controller:** `PaymentController` (API thanh toán, gửi biên lai)  
-- **Exception:** `BusinessException`, `ResourceNotFoundException`, `CustomException`  
-- **Advice:** `HandlerExceptionController` (xử lý ngoại lệ)  
+- **Entity**: Booking, Payment, User, Service  
+- **DTO**: BookingRequestDTO, PaymentReceiptRequestDTO, PaymentRequestDTO  
+- **Enum**: BookingStatus, PaymentStatus  
+- **Repository**: BookingRepository, PaymentRepository  
+- **Service**: PaymentReceiptService, PaymentReceiptServiceImp (Interface)  
+- **Controller**: PaymentController (API thanh toán, gửi biên lai)  
+- **Exception**: BusinessException, ResourceNotFoundException, CustomException  
+- **Advice**: HandlerExceptionController (xử lý ngoại lệ)  
 
 ---
 
