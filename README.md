@@ -60,6 +60,7 @@ Dự án được xây dựng bằng Spring Boot, MySQL và JavaMailSender để
 ```properties
 spring.mail.username=your_email@gmail.com
 spring.mail.password=your_app_password  # (sẽ được cung cấp khi test)
+```
 
 
 ## API chính 
@@ -71,7 +72,7 @@ spring.mail.password=your_app_password  # (sẽ được cung cấp khi test)
 {
   "id": 1
 }
-```
+
 
 ### 2. Gửi biên lai qua mail
 - - **POST** `/receipt/send-email`
